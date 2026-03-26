@@ -18,6 +18,7 @@ SRCS =  ft_controleur.c \
 		ft_key_event.c \
 		ft_mandelbrot.c \
 		ft_mike.c \
+		ft_newton.c \
 		ft_mouse_event.c \
 		ft_put_pixel_color.c \
 		main.c
@@ -36,7 +37,7 @@ all: $(NAME) $(INCLUDE)
 
 $(NAME): $(MINILIB) $(OBJ)
 	make -C libft
-	$(CC) -o $(NAME) $(CFLAGS) $(OBJ) $(MINILIB) -framework OpenGL -framework Appkit libft/libft.a
+	$(CC) -o $(NAME) $(CFLAGS) $(OBJ) $(MINILIB) -framework OpenGL -framework Appkit libft/libft.a -lpthread
 	echo "Fractol done" $@
 
 $(MINILIB):

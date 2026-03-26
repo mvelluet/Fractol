@@ -14,7 +14,6 @@
 
 static	int	ft_strlen_itoa(int n)
 {
-	int		temp;
 	int		i;
 
 	i = 0;
@@ -25,7 +24,6 @@ static	int	ft_strlen_itoa(int n)
 	}
 	while (n > 0)
 	{
-		temp = n % 10;
 		n = n / 10;
 		i++;
 	}

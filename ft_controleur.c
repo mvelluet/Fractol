@@ -27,5 +27,7 @@ void	ft_print_image(t_mlx *ap)
 		ft_julia(ap);
 	else if (ft_strcmp(ap->name, "Mike") == 0)
 		ft_mike(ap);
+	else if (ft_strcmp(ap->name, "Newton") == 0)
+		ft_newton(ap);
 	mlx_put_image_to_window(ap->mlx, ap->win, ap->ptr_img, 0, 0);
 }

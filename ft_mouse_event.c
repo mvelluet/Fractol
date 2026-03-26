@@ -14,6 +14,8 @@
 
 int			ft_mouse_pointer(int x, int y, t_mlx *ap)
 {
+	if (ap->paused)
+		return (0);
 	ap->j_x = ap->c_x_init + (((float)x - HEIGHT / 2) / 1000);
 	ap->j_y = ap->c_y_init + (((float)y - WIDTH / 2) / 1000);
 	ft_print_image(ap);
@@ -25,12 +27,8 @@ void		ft_zoom(t_mlx *ap, int x, int y, int keycode)
 	double	xscale;
 	double	yscale;
 	double	ztemp;
-	double	xtemp;
-	double	ytemp;
 
 	ztemp = ap->z;
-	xtemp = ap->x;
-	ytemp = ap->y;
 	if (keycode == 1 || keycode == 4)
 		ap->zoom *= 1.1;
 	else if (keycode == 2 || keycode == 5)

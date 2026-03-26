@@ -12,41 +12,39 @@
 
 #include "fractol.h"
 
-void			ft_choice_of_color(t_mlx *ap, double r, int pos)
+static void		ft_write_color(t_mlx *ap, double r, int pos)
 {
-	if (ap->i == ap->ite_max)
+	double	b;
+	double	g;
+	double	rd;
+
+	b = (ap->blue + ap->blue_more) * (0.5 + 0.5 * sin(r * PI));
+	g = (ap->green + ap->green_more) * (0.5 + 0.5 * sin(r * PI + 2));
+	rd = (ap->red + ap->red_more) * (0.5 + 0.5 * sin(r * PI + 4));
+	ap->img_str[pos] = (char)(b > 255 ? 255 : b);
+	ap->img_str[pos + 1] = (char)(g > 255 ? 255 : g);
+	ap->img_str[pos + 2] = (char)(rd > 255 ? 255 : rd);
+	ap->img_str[pos + 3] = ap->alpha;
+}
+
+void			ft_put_pixel_iter(t_mlx *ap, int x, int y, double iter)
+{
+	unsigned	pos;
+	double		r;
+
+	pos = (unsigned)x * (WIDTH * 4) + (unsigned)y * 4;
+	if (y <= 0 || y >= WIDTH || pos == 0 || pos >= (HEIGHT * WIDTH * 4))
+		return ;
+	if (iter >= ap->ite_max)
 	{
-		ap->blue = 0;
-		ap->green = 0;
-		ap->red = 0;
-		ap->img_str[pos] = ap->blue;
-		ap->img_str[pos + 1] = ap->green;
-		ap->img_str[pos + 2] = ap->red;
+		ap->img_str[pos] = 0;
+		ap->img_str[pos + 1] = 0;
+		ap->img_str[pos + 2] = 0;
 		ap->img_str[pos + 3] = ap->alpha;
 	}
 	else
 	{
-		ap->img_str[pos] = (ap->blue + ap->blue_more) * r * 15;
-		ap->img_str[pos + 1] = (ap->green + ap->green_more) * r * 10;
-		ap->img_str[pos + 2] = (ap->red + ap->red_more) * r * 5;
-		ap->img_str[pos + 3] = ap->alpha;
-	}
-}
-
-void			ft_put_pixel(t_mlx *ap, int x, int y)
-{
-	unsigned	pos_x;
-	unsigned	pos_y;
-	unsigned	pos;
-	double		r;
-
-	pos_x = (unsigned)x * (WIDTH * 4);
-	pos_y = (unsigned)y * 4;
-	r = ap->i / 70;
-	if (y > 0 && y < WIDTH)
-	{
-		pos = pos_x + pos_y;
-		if (pos > 0 && pos < (HEIGHT * WIDTH * 4))
-			ft_choice_of_color(ap, r, pos);
+		r = iter / ap->ite_max;
+		ft_write_color(ap, r, pos);
 	}
 }

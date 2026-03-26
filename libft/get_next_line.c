@@ -62,9 +62,7 @@ int		ft_read_rest(char **stockage, char ***line)
 void	ft_treatment(char *buf, char **stockage)
 {
 	char		*tmp;
-	size_t		i;
 
-	i = 0;
 	tmp = NULL;
 	if (*stockage == NULL)
 		*stockage = ft_strdup(buf);

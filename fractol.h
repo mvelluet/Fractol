@@ -15,12 +15,14 @@
 
 # include <stdio.h>
 # include <math.h>
+# include <pthread.h>
 # include "libft/libft.h"
 # include "minilibx_macos/mlx.h"
 
 # define HEIGHT 600
 # define WIDTH 600
 # define PI 3.1415926535898
+# define NUM_THREADS 8
 
 typedef struct		s_mlx
 {
@@ -33,6 +35,7 @@ typedef struct		s_mlx
 	int				width;
 	int				alpha;
 	int				nb;
+	int				paused;
 	double			red;
 	double			green;
 	double			blue;
@@ -68,19 +71,28 @@ typedef struct		s_mlx
 	double			h;
 }					t_mlx;
 
+typedef struct		s_thread
+{
+	t_mlx			*ap;
+	int				x_start;
+	int				x_end;
+}					t_thread;
+
 int					ft_verif_arg(int argc, char **argv, t_mlx *ap);
 void				ft_initialisation_mandelbrot(t_mlx *ap);
 void				ft_initialisation_julia(t_mlx *ap);
 void				ft_initialisation_mike(t_mlx *ap);
+void				ft_initialisation_newton(t_mlx *ap);
 void				ft_initialisation(t_mlx *ap, int nb);
-void				ft_choice_of_color(t_mlx *ap, double r, int pos);
-void				ft_put_pixel(t_mlx *ap, int x, int y);
-void				ft_mandelbrot_next(t_mlx *ap);
+void				ft_put_pixel_iter(t_mlx *ap, int x, int y, double iter);
 void				ft_mandelbrot(t_mlx *ap);
-void				ft_julia_next(t_mlx *ap);
 void				ft_julia(t_mlx *ap);
-void				ft_mike_next(t_mlx *ap);
 void				ft_mike(t_mlx *ap);
+void				*ft_mandelbrot_thread(void *arg);
+void				*ft_julia_thread(void *arg);
+void				*ft_mike_thread(void *arg);
+void				ft_newton(t_mlx *ap);
+void				*ft_newton_thread(void *arg);
 int					ft_key_event(int keycode, t_mlx *ap);
 void				ft_change_color(int keycode, t_mlx *ap);
 void				ft_change_ite(int keycode, t_mlx *ap);

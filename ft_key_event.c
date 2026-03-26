@@ -14,7 +14,7 @@
 
 void		ft_reset(int keycode, t_mlx *ap)
 {
-	if (keycode == 82)
+	if (keycode == 51)
 	{
 		ft_initialisation(ap, 1);
 		if (ft_strcmp(ap->name, "Mandelbrot") == 0)
@@ -23,6 +23,8 @@ void		ft_reset(int keycode, t_mlx *ap)
 			ft_initialisation_julia(ap);
 		if (ft_strcmp(ap->name, "Mike") == 0)
 			ft_initialisation_mike(ap);
+		if (ft_strcmp(ap->name, "Newton") == 0)
+			ft_initialisation_newton(ap);
 		ft_print_image(ap);
 	}
 }
@@ -79,13 +81,15 @@ int			ft_key_event(int keycode, t_mlx *ap)
 {
 	if (keycode == 69 || keycode == 78)
 		ft_change_ite(keycode, ap);
-	if (keycode >= 123 || keycode <= 126)
+	if (keycode >= 123 && keycode <= 126)
 		ft_deplacement(keycode, ap);
 	if (keycode == 43 || keycode == 47 || keycode == 15 || keycode == 5
 		|| keycode == 11)
 		ft_change_color(keycode, ap);
-	if (keycode == 82)
+	if (keycode == 51)
 		ft_reset(keycode, ap);
+	if (keycode == 49)
+		ap->paused = !(ap->paused);
 	if (keycode == 53)
 		exit(-1);
 	ft_print_image(ap);

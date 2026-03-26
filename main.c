@@ -31,6 +31,11 @@ int			ft_verif_arg(int argc, char **argv, t_mlx *ap)
 		ft_initialisation_mike(ap);
 		return (0);
 	}
+	else if (ft_strcmp(argv[1], "Newton") == 0)
+	{
+		ft_initialisation_newton(ap);
+		return (0);
+	}
 	else
 		return (1);
 	return (0);
@@ -49,7 +54,7 @@ int			main(int argc, char **argv)
 
 	if (ft_verif_arg(argc, argv, &ap) == 1)
 	{
-		ft_putstr("Mandelbrot - Julia - Mike\n");
+		ft_putstr("Mandelbrot - Julia - Mike - Newton\n");
 		return (0);
 	}
 	ft_initialisation(&ap, 0);
@@ -60,6 +65,8 @@ int			main(int argc, char **argv)
 		ft_julia(&ap);
 	if (ft_strcmp(ap.name, "Mike") == 0)
 		ft_mike(&ap);
+	if (ft_strcmp(ap.name, "Newton") == 0)
+		ft_newton(&ap);
 	mlx_put_image_to_window(ap.mlx, ap.win, ap.ptr_img, 0, 0);
 	mlx_mouse_hook(ap.win, ft_mouse_event, &ap);
 	if (ft_strcmp(ap.name, "Julia") == 0)

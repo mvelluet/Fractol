@@ -65,6 +65,22 @@ void	ft_initialisation_mike(t_mlx *ap)
 	ap->nb = 1;
 }
 
+void	ft_initialisation_newton(t_mlx *ap)
+{
+	ap->c_x = 0;
+	ap->c_y = 0;
+	ap->z_x = 0;
+	ap->z_y = 0;
+	ap->i = 0;
+	ap->ite_max = 50;
+	ap->x = -2;
+	ap->y = -2;
+	ap->z = 4;
+	ap->z_init = ap->z;
+	ap->zoom = 1.0;
+	ap->tmp = 0;
+}
+
 void	ft_initialisation(t_mlx *ap, int nb)
 {
 	int	bpp;
@@ -84,4 +100,5 @@ void	ft_initialisation(t_mlx *ap, int nb)
 	ap->green_more = 57;
 	ap->blue_more = 43;
 	ap->alpha = 0;
+	ap->paused = 0;
 }
